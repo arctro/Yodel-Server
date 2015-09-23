@@ -91,7 +91,7 @@
 		}
 		
 		function new_session($key, $user_id=0){
-			$key_data = get_auth($key);
+			$key_data = $this->get_auth($key);
 			
 			if(!isset($key_data['id'])){
 				return false;
@@ -125,7 +125,7 @@
 			$hashed_password = hash('sha256', $password . $result['salt']);
 			
 			if($hashed_password == $result['password']){
-				return new_session($key, $result['id']);
+				return $this->new_session($key, $result['id']);
 			}else{
 				return array();
 			}
