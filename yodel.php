@@ -93,6 +93,8 @@
 		function new_session($key, $user_id=0){
 			$key_data = $this->get_auth($key);
 			
+			print_r($key_data);
+			
 			if(!isset($key_data['id'])){
 				return false;
 			}
@@ -102,6 +104,8 @@
 			
 			$sql = "INSERT INTO `yodel`.`sessions` (`id`, `user_id`, `key_id`, `session_id`, `expire`) VALUES (NULL, '". $user_id ."', '". $key_data['id'] ."', '". $uuid ."', '". $expire ."')";
 			$result = $this->base->mysqli_results($sql);
+			
+			print_r($result);
 			
 			return array("session_id"=>$uuid, "expire"=>strtotime('+24 hour'));
 		}
@@ -173,8 +177,8 @@
 			$auth_key = $input['key'];
 			
 			$auth = $this->yodel->get_auth($auth_key);
-			$permissions = json_decode($auth[0]['permissions'], true);
-			$enabled = $auth[0]['enabled'];
+			$permissions = json_decode($auth['permissions'], true);
+			$enabled = $auth['enabled'];
 			
 			if($request == "POST_MESSAGE"){
 				if($permissions['p'] == 1 && $enabled == 1){
