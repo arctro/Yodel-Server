@@ -48,7 +48,7 @@
 		//Check if all keys have a value assigned
 		function keys_set($keys, $array){
 			for($i = 0; $i < count($keys); $i++){
-				if(!isset($array[$keys[$i]]){
+				if(!isset($array[$keys[$i]])){
 					return false;
 				}
 			}

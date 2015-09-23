@@ -196,7 +196,7 @@
 				return $this->yodel->get_messages($input['lat'], $input['lng'], $this->yodel->radius, $input['offset']);
 			}
 			if($request == "GET_MESSAGE"){
-				if(!$this->base->keys_set(array("id"), $input))){
+				if(!$this->base->keys_set(array("id"), $input)){
 					return false;
 				}
 				return $this->yodel->get_message($input['id']);
