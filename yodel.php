@@ -60,9 +60,7 @@
 			$lngTop = $lng + ((1/(111.320 * cos($lat))) * $radius);
 			$lngBottom = $lng - ((1/(111.320 * cos($lat))) * $radius);
 			
-			if(!is_int($offset)){
-				$offset=0;
-			}
+			$offset = intval($offset);
 		
 			$result = $this->base->mysqli_results("SELECT * FROM `posts` WHERE `lat` > '".$latLeft."' AND `lat` < '".$latRight."' AND `lng` > '".$lngBottom."' AND `lng` < '".$lngTop."' LIMIT ". $this->limit ." OFFSET " . $offset)['return'];
 			return $result;
@@ -86,9 +84,8 @@
 		
 		//Get comments
 		function get_comments($post_id, $parent_id=0, $offset=0){
-			if(!is_int($offset)){
-				$offset=0;
-			}
+			$offset = intval($offset);
+			
 			$result = $this->base->mysqli_results("SELECT * FROM `comments` WHERE `post_id` = '". $post_id ."' AND `parent_id` = '". $parent_id ."' LIMIT ". $this->limit ." OFFSET " . $offset)['return'];
 			return $result;
 		}
