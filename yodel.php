@@ -19,8 +19,8 @@
 		//Post a message
 		function post_message($title, $message, $lat, $lng, $session_id=""){
 			if($session_id!=""){
-				$session_data = $this->base->mysqli_results("SELECT * FROM `arctro`.`sessions` WHERE `session_id` LIKE '".$session_id."'");
-				$user_id = $session_data['return']['user_id'];
+				$session_data = $this->base->mysqli_results("SELECT * FROM `sessions` WHERE `session_id` LIKE '". $session_id ."'");
+				$user_id = $session_data['return'][0]['user_id'];
 			}else{
 				$user_id = 0;
 			}
