@@ -74,7 +74,7 @@
 		
 		//Post a comment
 		function post_comment($post_id, $user, $parent_id, $content){
-			$session = get_session($user);
+			$session = $this->get_session($user);
 			$user_id = $session['user_id'];
 			
 			$content = $this->base->filter_spam($content);
