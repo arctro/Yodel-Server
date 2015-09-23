@@ -93,8 +93,6 @@
 		function new_session($key, $user_id=0){
 			$key_data = $this->get_auth($key);
 			
-			print_r($key_data);
-			
 			if(!isset($key_data['id'])){
 				return false;
 			}
@@ -104,8 +102,6 @@
 			
 			$sql = "INSERT INTO `yodel`.`sessions` (`id`, `user_id`, `key_id`, `session_id`, `expire`) VALUES (NULL, '". $user_id ."', '". $key_data['id'] ."', '". $uuid ."', '". $expire ."')";
 			$result = $this->base->mysqli_results($sql);
-			
-			print_r($result);
 			
 			return array("session_id"=>$uuid, "expire"=>strtotime('+24 hour'));
 		}
