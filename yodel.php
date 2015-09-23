@@ -138,7 +138,7 @@
 		function get_auth($key){
 			$sql = "SELECT * FROM `auth_keys` WHERE `key` LIKE '". $key ."'";
 			$result = $this->base->mysqli_results($sql);
-			return $result['return'];
+			return $result['return'][0];
 		}
 	}
 	
