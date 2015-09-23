@@ -28,6 +28,7 @@
 			$message = $this->base->filter_spam($message);
 			
 			$result = $this->base->mysqli_results("INSERT INTO `yodel`.`posts` (`id`, `user_id`, `title`, `content`, `lat`, `lng`, `post_date`) VALUES (NULL, '". $user_id ."', '". $title ."', '". $message ."', '". $lat ."', '". $lng ."', CURRENT_TIMESTAMP);");
+			return $result;
 		}
 		
 		//Make sure user can be where they are
@@ -79,7 +80,8 @@
 			
 			$content = $this->base->filter_spam($content);
 			
-			$this->base->mysqli_results("INSERT INTO `yodel`.`comments` (`id`, `user_id`, `post_id`, `parent_id`, `content`, `date_posted`) VALUES (NULL, '". $user_id ."', '". $post_id ."', '". $parent_id ."', '". $content ."', CURRENT_TIMESTAMP)");
+			$result = $this->base->mysqli_results("INSERT INTO `yodel`.`comments` (`id`, `user_id`, `post_id`, `parent_id`, `content`, `date_posted`) VALUES (NULL, '". $user_id ."', '". $post_id ."', '". $parent_id ."', '". $content ."', CURRENT_TIMESTAMP)");
+			return $result;
 		}
 		
 		//Get comments
@@ -181,8 +183,7 @@
 					if(!$this->base->keys_set(array("title", "message", "lat", "lng"), $input)){
 						return array("error"=>"Title, Message, Lat or Lng not entered");
 					}
-					$this->yodel->post_message($input['title'],$input['message'],$input['lat'],$input['lng'],$input['session']);
-					return array();
+					return $this->yodel->post_message($input['title'],$input['message'],$input['lat'],$input['lng'],$input['session']);
 				}
 				return array("error"=>"Auth key invalid or not right permission");
 			}
@@ -222,8 +223,7 @@
 					if(!$this->base->keys_set(array("post", "parent", "content"), $input)){
 						return array("error"=>"Post, Parent or Content not entered");
 					}
-					$this->yodel->post_comment($input['post'], $input['session'], $input['parent'], $input['content']);
-					return array();
+					return $this->yodel->post_comment($input['post'], $input['session'], $input['parent'], $input['content']);
 				}
 				return array("error"=>"Auth key invalid or not right permission");
 			}
