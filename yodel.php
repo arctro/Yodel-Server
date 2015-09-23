@@ -178,7 +178,7 @@
 			
 			if($request == "POST_MESSAGE"){
 				if($permissions['p'] == 1 && $enabled == 1){
-					if(!$this->base->keys_set(array("title", "message", "lat", "lng", "session"), $input)){
+					if(!$this->base->keys_set(array("title", "message", "lat", "lng"), $input)){
 						return false;
 					}
 					$this->yodel->post_message($input['title'],$input['message'],$input['lat'],$input['lng'],$input['session']);
@@ -219,7 +219,7 @@
 			}
 			if($request == "POST_COMMENT"){
 				if($permissions['p'] == 1 && $auth['enabled'] == 1){
-					if(!$this->base->keys_set(array("post", "session", "parent", "content"), $input)){
+					if(!$this->base->keys_set(array("post", "parent", "content"), $input)){
 						return false;
 					}
 					$this->yodel->post_comment($input['post'], $input['session'], $input['parent'], $input['content']);
