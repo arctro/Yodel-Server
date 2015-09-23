@@ -181,7 +181,7 @@
 			
 			if($request == "POST_MESSAGE"){
 				if($permissions['p'] == 1 && $enabled == 1){
-					if(!$this->base->keys_set(array("title", "message", "lat", "lng", "session"), $input))){
+					if(!$this->base->keys_set(array("title", "message", "lat", "lng", "session"), $input)){
 						return false;
 					}
 					$this->yodel->post_message($input['title'],$input['message'],$input['lat'],$input['lng'],$input['session']);
@@ -190,7 +190,7 @@
 				return false;
 			}
 			if($request == "GET_MESSAGES"){
-				if(!$this->base->keys_set(array("lat", "lng"), $input))){
+				if(!$this->base->keys_set(array("lat", "lng"), $input)){
 					return false;
 				}
 				return $this->yodel->get_messages($input['lat'], $input['lng'], $this->yodel->radius, $input['offset']);
@@ -203,7 +203,7 @@
 			}
 			if($request == "LOGIN"){
 				if($permissions['u'] == 1 && $enabled == 1){
-					if(!$this->base->keys_set(array("username", "password"), $input))){
+					if(!$this->base->keys_set(array("username", "password"), $input)){
 						return false;
 					}
 					return $this->yodel->login_user($input['username'], $input['password'], $auth_key);
@@ -212,7 +212,7 @@
 			}
 			if($request == "LOGOUT"){
 				if($permissions['u'] == 1 && $enabled == 1){
-					if(!$this->base->keys_set(array("session"), $input))){
+					if(!$this->base->keys_set(array("session"), $input)){
 						return false;
 					}
 					$this->yodel->logout_user($input['session']);
@@ -222,7 +222,7 @@
 			}
 			if($request == "POST_COMMENT"){
 				if($permissions['p'] == 1 && $auth['enabled'] == 1){
-					if(!$this->base->keys_set(array("post", "session", "parent", "content"), $input))){
+					if(!$this->base->keys_set(array("post", "session", "parent", "content"), $input)){
 						return false;
 					}
 					$this->yodel->post_comment($input['post'], $input['session'], $input['parent'], $input['content']);
@@ -231,7 +231,7 @@
 				return false;
 			}
 			if($request == "GET_COMMENTS"){
-				if(!$this->base->keys_set(array("post_id"), $input))){
+				if(!$this->base->keys_set(array("post_id"), $input)){
 					return false;
 				}
 				return $this->yodel->get_comments($input['post_id'], $input['parent_id'], $input['offset']);
