@@ -137,6 +137,17 @@
 			$this->invalidate_session($session_id);
 		}
 		
+		function signup_user($key, $email, $password, $phone=0){
+			$salt = $this->base->gen_uuid();
+			$hashed_password = hash('sha256', $password . $salt);
+			
+			$sql = "INSERT INTO `yodel`.`users` (`id`, `phone_number`, `email`, `password`, `salt`, `date_joined`, `vertified`) VALUES (NULL, '". $phone ."', '". $email ."', '". $hashed_password ."', '". $salt ."', CURRENT_TIMESTAMP, '0')";
+			$result = $this->base->mysqli_results($sql)['insert_id'];
+			
+			$session = $this->new_session($key, $result);
+			return $session;
+		}
+		
 		function get_auth($key){
 			$sql = "SELECT * FROM `auth_keys` WHERE `key` LIKE '". $key ."'";
 			$result = $this->base->mysqli_results($sql);
@@ -198,6 +209,15 @@
 					return array("error"=>"ID not entered");
 				}
 				return $this->yodel->get_message($input['id']);
+			}
+			if($request == "SIGNUP"){
+				if($permissions['s'] == 1 && $enabled == 1){
+					if(!$this->base->keys_set(array("email", "password"), $input)){
+						return array("error"=>"Email or Password not entered");
+					}
+					return $this->yodel->signup_user($auth_key, $input['email'], $input['password'], $input['phone']);
+				}
+				return array("error"=>"Auth key invalid or not right permission");
 			}
 			if($request == "LOGIN"){
 				if($permissions['u'] == 1 && $enabled == 1){
