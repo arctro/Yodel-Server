@@ -109,7 +109,7 @@
 		}
 		
 		function invalidate_session($session_id){
-			$sql = "UPDATE `yodel`.`sessions` SET `expire` = '2015-09-30 14:46:37' WHERE `sessions`.`session_id` = '". $session_id ."'";
+			$sql = "UPDATE `yodel`.`sessions` SET `expire` = '2015-08-30 14:46:37' WHERE `sessions`.`session_id` LIKE '". $session_id ."'";
 			$result = $this->base->mysqli_results($sql);
 		}
 		
@@ -134,7 +134,7 @@
 		}
 		
 		function logout_user($session_id){
-			invalidate_session($session_id);
+			$this->invalidate_session($session_id);
 		}
 		
 		function get_auth($key){
