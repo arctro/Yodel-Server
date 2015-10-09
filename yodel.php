@@ -63,7 +63,7 @@
 			
 			$offset = intval($offset);
 		
-			$result = $this->base->mysqli_results("SELECT * FROM `posts` WHERE `lat` > '".$latLeft."' AND `lat` < '".$latRight."' AND `lng` > '".$lngBottom."' AND `lng` < '".$lngTop."' LIMIT ". $this->limit ." OFFSET " . $offset)['return'];
+			$result = $this->base->mysqli_results("SELECT * FROM `posts` WHERE `lat` > '".$latLeft."' AND `lat` < '".$latRight."' AND `lng` > '".$lngBottom."' AND `lng` < '".$lngTop."' ORDER BY `post_date` DESC LIMIT ". $this->limit ." OFFSET " . $offset)['return'];
 			return $result;
 		}
 		
@@ -88,7 +88,7 @@
 		function get_comments($post_id, $parent_id=0, $offset=0){
 			$offset = intval($offset);
 			
-			$result = $this->base->mysqli_results("SELECT * FROM `comments` WHERE `post_id` = '". $post_id ."' AND `parent_id` = '". $parent_id ."' LIMIT ". $this->limit ." OFFSET " . $offset)['return'];
+			$result = $this->base->mysqli_results("SELECT * FROM `comments` WHERE `post_id` = '". $post_id ."' AND `parent_id` = '". $parent_id ."' ORDER BY `date_posted` DESC LIMIT ". $this->limit ." OFFSET " . $offset)['return'];
 			return $result;
 		}
 		
