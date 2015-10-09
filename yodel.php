@@ -52,6 +52,20 @@
 			}
 			return true;
 		}
+		
+		//Vote on post
+		function vote($id, $value){
+			$sql = "";
+			
+			if($value > 0){
+				$sql = "UPDATE `yodel`.`posts` SET `ups` = `ups` + '1' WHERE `posts`.`id` = " . $id;
+			}else{
+				$sql = "UPDATE `yodel`.`posts` SET `downs` = `downs` + '1' WHERE `posts`.`id` = " . $id;
+			}
+			
+			$result = $this->base->mysqli_results($sql)['return'];
+			return $result;
+		}
 				
 		//Get messages in area
 		function get_messages($lat, $lng, $radius, $offset=0){
@@ -209,6 +223,24 @@
 					return array("error"=>"ID not entered");
 				}
 				return $this->yodel->get_message($input['id']);
+			}
+			if($request == "UPVOTE"){
+				if($permissions['p'] == 1 && $enabled == 1){
+					if(!$this->base->keys_set(array("id"), $input)){
+						return array("error"=>"ID not entered");
+					}
+					return $this->yodel->vote($input['id'], 1);
+				}
+				return array("error"=>"Auth key invalid or not right permission");
+			}
+			if($request == "DOWNVOTE"){
+				if($permissions['p'] == 1 && $enabled == 1){
+					if(!$this->base->keys_set(array("id"), $input)){
+						return array("error"=>"ID not entered");
+					}
+					return $this->yodel->vote($input['id'], -1);
+				}
+				return array("error"=>"Auth key invalid or not right permission");
 			}
 			if($request == "SIGNUP"){
 				if($permissions['s'] == 1 && $enabled == 1){
