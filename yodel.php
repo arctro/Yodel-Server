@@ -81,6 +81,19 @@
 			return $result;
 		}
 		
+		function get_messages_hot($lat, $lng, $radius, $offset=0){
+			$latRight = $lat + ($radius * 0.00904371733);
+			$latLeft = $lat - ($radius * 0.00904371733);
+			
+			$lngTop = $lng + ((1/(111.320 * cos($lat))) * $radius);
+			$lngBottom = $lng - ((1/(111.320 * cos($lat))) * $radius);
+			
+			$offset = intval($offset);
+		
+			$result = $this->base->mysqli_results("SELECT * FROM `hot` WHERE `lat` > '".$latLeft."' AND `lat` < '".$latRight."' AND `lng` > '".$lngBottom."' AND `lng` < '".$lngTop."' LIMIT ". $this->limit ." OFFSET " . $offset)['return'];
+			return $result;
+		}
+		
 		//Get single message
 		function get_message($id){
 			$result = $this->base->mysqli_results("SELECT * FROM `posts` WHERE `id` = '". $id ."'")['return'][0];
@@ -215,6 +228,9 @@
 			if($request == "GET_MESSAGES"){
 				if(!$this->base->keys_set(array("lat", "lng"), $input)){
 					return array("error"=>"Lat or Lng not entered");
+				}
+				if($input['s']=='h'){
+					return $this->yodel->get_messages_hot($input['lat'], $input['lng'], $this->yodel->radius, $input['offset']);
 				}
 				return $this->yodel->get_messages($input['lat'], $input['lng'], $this->yodel->radius, $input['offset']);
 			}
