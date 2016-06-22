@@ -72,8 +72,8 @@
 			$latRight = $lat + ($radius * 0.00904371733);
 			$latLeft = $lat - ($radius * 0.00904371733);
 			
-			$lngTop = $lng + ((1/(111.320 * cos($lat))) * $radius);
-			$lngBottom = $lng - ((1/(111.320 * cos($lat))) * $radius);
+			$lngTop = $lng - ((1/(111.320 * cos($lat))) * $radius);
+			$lngBottom = $lng + ((1/(111.320 * cos($lat))) * $radius);
 			
 			$offset = intval($offset);
 		
@@ -85,8 +85,8 @@
 			$latRight = $lat + ($radius * 0.00904371733);
 			$latLeft = $lat - ($radius * 0.00904371733);
 			
-			$lngTop = $lng + ((1/(111.320 * cos($lat))) * $radius);
-			$lngBottom = $lng - ((1/(111.320 * cos($lat))) * $radius);
+			$lngTop = $lng - ((1/(111.320 * cos($lat))) * $radius);
+			$lngBottom = $lng + ((1/(111.320 * cos($lat))) * $radius);
 			
 			$offset = intval($offset);
 		
