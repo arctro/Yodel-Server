@@ -75,6 +75,12 @@
 			$lngTop = $lng - ((1/(111.320 * cos($lat))) * $radius);
 			$lngBottom = $lng + ((1/(111.320 * cos($lat))) * $radius);
 			
+			if($lngBottom > $lngTop){
+				$temp = $lngTop;
+				$lngTop = $lngBottom;
+				$lngBottom = $temp;
+			}
+			
 			$offset = intval($offset);
 		
 			$result = $this->base->mysqli_results("SELECT * FROM `posts` WHERE `lat` > '".$latLeft."' AND `lat` < '".$latRight."' AND `lng` > '".$lngBottom."' AND `lng` < '".$lngTop."' ORDER BY `post_date` DESC LIMIT ". $this->limit ." OFFSET " . $offset)['return'];
@@ -87,6 +93,12 @@
 			
 			$lngTop = $lng - ((1/(111.320 * cos($lat))) * $radius);
 			$lngBottom = $lng + ((1/(111.320 * cos($lat))) * $radius);
+			
+			if($lngBottom > $lngTop){
+				$temp = $lngTop;
+				$lngTop = $lngBottom;
+				$lngBottom = $temp;
+			}
 			
 			$offset = intval($offset);
 		
